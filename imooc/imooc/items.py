@@ -13,4 +13,6 @@ class ImoocItem(scrapy.Item):
     url = scrapy.Field()
     intro = scrapy.Field()
     student_num = scrapy.Field()
+    discuss_num = scrapy.Field()
+    grade = scrapy.Field()
     pass
