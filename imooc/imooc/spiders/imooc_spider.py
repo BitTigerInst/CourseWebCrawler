@@ -36,7 +36,7 @@ class ImoocSpider(scrapy.Spider):
             request = scrapy.Request(next_page_url, callback=self.parse)
             yield request
         else:
-            print "this is the end" 
+            print "this is the end"
 
     def parse_detail_page(self, response):
         item = response.meta["item"]
