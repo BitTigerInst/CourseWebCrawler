@@ -65,9 +65,13 @@ DOWNLOAD_DELAY = 3
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'imooc.pipelines.ImoocPipeline': 300,
+    'imooc.pipelines.ImoocPipeline': 1,
+    'imooc.pipelines.ImoocMongodbPipeline': 2,
 }
 
+# mongo db settings
+MONGO_URI = "127.0.0.1:27017"
+MONGO_DATABASE = "imooc"
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True
