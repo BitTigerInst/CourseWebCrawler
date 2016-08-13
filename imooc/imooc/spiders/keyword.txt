@@ -39,7 +39,7 @@ KAFKA
 web framework
 MeteorJS
 ruby on rails
-R
+R语言
 javascript
 fuctional programming
 haskell
@@ -50,7 +50,7 @@ IOS
 IOT
 C++
 SWIFT
-C
+C语言
 OBJECTIVE-C
 AR
 VR
@@ -60,8 +60,13 @@ Appstore
 UX design
 advertisement system
 test
-html
-html5
-css
+HTML
+HTML5
+CSS
 node.js
 c#
+Linux
+PHP
+PS
+BootStrap
+MySQL
