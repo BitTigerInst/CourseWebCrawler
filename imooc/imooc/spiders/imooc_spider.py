@@ -10,7 +10,7 @@ from imooc.items import ImoocItem
 class ImoocSpider(scrapy.Spider):
     name = "imooc"
     allowed_domains = ["imooc.com"]
-    start_urls = ["http://www.imooc.com/course/list?page=2"]
+    start_urls = ["http://www.imooc.com/course/list"]
 
     def __init__(self):
         file = open("./spiders/keyword.txt", 'r')
@@ -36,7 +36,11 @@ class ImoocSpider(scrapy.Spider):
         base_urls = "http://www.imooc.com"
         for div in divs:
             item = ImoocItem()
-            item['name'] = div.xpath('./a/div[@class="moco-course-box"]/div[@class="moco-course-intro"]/h3/text()').extract()[1].encode('utf-8').strip()
+            name = div.xpath('./a/div[@class="moco-course-box"]/div[@class="moco-course-intro"]/h3/text()').extract()
+            print name
+            if len(name) == 0:
+                continue
+            item['name'] = name[1].encode('utf-8').strip()
             print item['name']
             url = div.xpath('./a/@href').extract_first()
             item['url'] = base_urls + url
@@ -55,7 +59,7 @@ class ImoocSpider(scrapy.Spider):
             yield req
 
         curr_page = int(response.xpath('//div[@class="page"]/a[@class="active"]/text()').extract_first())
-        if curr_page != 2:
+        if curr_page != 1:
             next_page_url = base_urls + "/course/list?page=" + str(curr_page + 1)
             print "next page is ", next_page_url
             request = scrapy.Request(next_page_url, callback=self.parse)
