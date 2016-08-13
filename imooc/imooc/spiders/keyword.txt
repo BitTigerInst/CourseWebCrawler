@@ -1,0 +1,62 @@
+Data Science
+Spring
+crawler
+system design
+big data
+front end
+angularJS
+search engine
+Java
+Python
+algorithm
+object oriented
+Tiny-URL
+AI
+DOCKER
+machine learning
+deep learning
+recommender system
+NLP
+data visulization
+full stack
+React
+backend
+web server
+NodeJS
+101
+CASSANDRA
+mongodb
+redis
+NoSQL
+version control
+git
+SVN
+Github
+Hadoop
+Spark
+map reduce
+KAFKA
+web framework
+MeteorJS
+ruby on rails
+R
+javascript
+fuctional programming
+haskell
+scala
+mobile development
+android
+IOS
+IOT
+C++
+SWIFT
+C
+OBJECTIVE-C
+AR
+VR
+MR
+PROJECT
+Appstore
+UX design
+advertisement system
+test
