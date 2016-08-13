@@ -70,6 +70,7 @@ class ImoocSpider(scrapy.Spider):
         discuss_num = response.xpath('//p[@class="person-num noLogin"]/a/text()').extract_first().encode('utf-8')
         item['discuss_num'] = re.match(r'\d+', discuss_num).group(0).strip()
         item['intro_detail'] = response.xpath('//div[@class="content"]/div[@class="course-brief"]/p/text()').extract_first().encode('utf-8').strip()
-        item['keywords'] = self.extractKeywords(item['intro_detail'])
+        intro = item['name'] + item['intro'] + item['intro_detail']
+        item['keywords'] = self.extractKeywords(intro)
         print item['keywords']
         yield item
