@@ -18,6 +18,7 @@ class ImoocSpider(scrapy.Spider):
         lines = file.readlines()
         for line in lines:
             self.keywords.append(line.strip())
+        print self.keywords
 
     def extractKeywords(self, intro):
         keyword = ""
@@ -26,6 +27,7 @@ class ImoocSpider(scrapy.Spider):
             if intro.lower().find(k.lower()) != -1:
                 if first:
                     keyword = k
+                    first = False
                 else :
                     keyword = keyword + "|" + k
         return keyword
@@ -37,22 +39,16 @@ class ImoocSpider(scrapy.Spider):
         for div in divs:
             item = ImoocItem()
             name = div.xpath('./a/div[@class="moco-course-box"]/div[@class="moco-course-intro"]/h3/text()').extract()
-            print name
             if len(name) == 0:
                 continue
             item['name'] = name[1].encode('utf-8').strip()
-            print item['name']
             url = div.xpath('./a/@href').extract_first()
             item['url'] = base_urls + url
-            print item['url']
             item['id'] = url.encode('utf-8').strip().split('/')[2]
             item['img_url'] = div.xpath('./a/div[@class="moco-course-box"]/img/@src').extract_first()
-            print item['img_url']
             num = div.xpath('./a/div[@class="moco-course-box"]/div[@class="moco-course-bottom"]/span/text()').extract_first().encode('utf-8').strip()
-            print num
             item['student_num'] = re.match(r'\d+', num).group(0).strip()
             item['intro'] = div.xpath('./a/div[@class="moco-course-box"]/div[@class="moco-course-intro"]/p/text()').extract_first().encode('utf-8').strip()
-            print item['intro']
             item['platform'] = 'imooc'
             req = scrapy.Request(item['url'], callback=self.parse_detail_page)
             req.meta["item"] = item
@@ -71,12 +67,9 @@ class ImoocSpider(scrapy.Spider):
         item = response.meta["item"]
 
         item['grade'] = response.xpath('//div[@class="score-info"]/div[@class="satisfaction-degree-info"]/h4/text()').extract_first().encode('utf-8').strip()
-        print item['grade']
         discuss_num = response.xpath('//p[@class="person-num noLogin"]/a/text()').extract_first().encode('utf-8')
         item['discuss_num'] = re.match(r'\d+', discuss_num).group(0).strip()
-        print item['discuss_num']
         item['intro_detail'] = response.xpath('//div[@class="content"]/div[@class="course-brief"]/p/text()').extract_first().encode('utf-8').strip()
-        print item['intro_detail']
         item['keywords'] = self.extractKeywords(item['intro_detail'])
         print item['keywords']
         yield item
