@@ -11,7 +11,7 @@ class ImoocPipeline(object):
         self.file = open('imooc.dat', 'wb')
 
     def process_item(self, item, spider):
-        val = "{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\n".format(item['name'], item['intro'], item['grade'], item['student_num'], item['discuss_num'], item['url'], item['img_url'])
+        val = "{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}\t{10}\n".format(item['id'], item['name'], item['grade'], item['platform'], item['url'], item['keywords'], item['student_num'], item['discuss_num'], item['intro'], item['img_url'], item['intro_detail'])
         self.file.write(val)
         return item
 

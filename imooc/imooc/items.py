@@ -9,6 +9,7 @@ import scrapy
 
 class ImoocItem(scrapy.Item):
     # define the fields for your item here like:
+    id = scrapy.Field()
     name = scrapy.Field()
     url = scrapy.Field()
     intro = scrapy.Field()
@@ -16,4 +17,7 @@ class ImoocItem(scrapy.Item):
     discuss_num = scrapy.Field()
     grade = scrapy.Field()
     img_url = scrapy.Field()
+    intro_detail = scrapy.Field()
+    platform = scrapy.Field()
+    keywords = scrapy.Field()
     pass
