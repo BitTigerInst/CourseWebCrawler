@@ -3,6 +3,7 @@ __author__ = 'huafei'
 
 import scrapy
 import re
+import string
 import os
 from scrapy.selector import Selector
 from imooc.items import ImoocItem
@@ -21,15 +22,10 @@ class ImoocSpider(scrapy.Spider):
         print self.keywords
 
     def extractKeywords(self, intro):
-        keyword = ""
-        first = True
+        keyword = []
         for k in self.keywords:
             if intro.lower().find(k.lower()) != -1:
-                if first:
-                    keyword = k
-                    first = False
-                else :
-                    keyword = keyword + "|" + k
+                keyword.append(k)
         return keyword
 
     def parse(self, response):
@@ -47,7 +43,8 @@ class ImoocSpider(scrapy.Spider):
             item['id'] = url.encode('utf-8').strip().split('/')[2]
             item['img_url'] = div.xpath('./a/div[@class="moco-course-box"]/img/@src').extract_first()
             num = div.xpath('./a/div[@class="moco-course-box"]/div[@class="moco-course-bottom"]/span/text()').extract_first().encode('utf-8').strip()
-            item['student_num'] = re.match(r'\d+', num).group(0).strip()
+            student_num = re.match(r'\d+', num).group(0).strip()
+            item['student_num'] = string.atoi(student_num)
             item['intro'] = div.xpath('./a/div[@class="moco-course-box"]/div[@class="moco-course-intro"]/p/text()').extract_first().encode('utf-8').strip()
             item['platform'] = 'imooc'
             req = scrapy.Request(item['url'], callback=self.parse_detail_page)
@@ -55,7 +52,7 @@ class ImoocSpider(scrapy.Spider):
             yield req
 
         curr_page = int(response.xpath('//div[@class="page"]/a[@class="active"]/text()').extract_first())
-        if curr_page != 1:
+        if curr_page != 24:
             next_page_url = base_urls + "/course/list?page=" + str(curr_page + 1)
             print "next page is ", next_page_url
             request = scrapy.Request(next_page_url, callback=self.parse)
@@ -66,9 +63,11 @@ class ImoocSpider(scrapy.Spider):
     def parse_detail_page(self, response):
         item = response.meta["item"]
 
-        item['grade'] = response.xpath('//div[@class="score-info"]/div[@class="satisfaction-degree-info"]/h4/text()').extract_first().encode('utf-8').strip()
+        grade = response.xpath('//div[@class="score-info"]/div[@class="satisfaction-degree-info"]/h4/text()').extract_first().encode('utf-8').strip()
+        item['grade'] = string.atof(grade)
         discuss_num = response.xpath('//p[@class="person-num noLogin"]/a/text()').extract_first().encode('utf-8')
-        item['discuss_num'] = re.match(r'\d+', discuss_num).group(0).strip()
+        discuss_num = re.match(r'\d+', discuss_num).group(0).strip()
+        item['discuss_num'] = string.atoi(discuss_num)
         item['intro_detail'] = response.xpath('//div[@class="content"]/div[@class="course-brief"]/p/text()').extract_first().encode('utf-8').strip()
         intro = item['name'] + item['intro'] + item['intro_detail']
         item['keywords'] = self.extractKeywords(intro)
