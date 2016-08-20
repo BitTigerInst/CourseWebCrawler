@@ -40,7 +40,8 @@ class ImoocSpider(scrapy.Spider):
             item['name'] = name[1].encode('utf-8').strip()
             url = div.xpath('./a/@href').extract_first()
             item['url'] = base_urls + url
-            item['id'] = url.encode('utf-8').strip().split('/')[2]
+            cid = url.encode('utf-8').strip().split('/')[2]
+            item['cid'] = "im" + cid
             item['img_url'] = div.xpath('./a/div[@class="moco-course-box"]/img/@src').extract_first()
             num = div.xpath('./a/div[@class="moco-course-box"]/div[@class="moco-course-bottom"]/span/text()').extract_first().encode('utf-8').strip()
             student_num = re.match(r'\d+', num).group(0).strip()
@@ -63,11 +64,11 @@ class ImoocSpider(scrapy.Spider):
     def parse_detail_page(self, response):
         item = response.meta["item"]
 
-        grade = response.xpath('//div[@class="score-info"]/div[@class="satisfaction-degree-info"]/h4/text()').extract_first().encode('utf-8').strip()
-        item['grade'] = string.atof(grade)
-        discuss_num = response.xpath('//p[@class="person-num noLogin"]/a/text()').extract_first().encode('utf-8')
-        discuss_num = re.match(r'\d+', discuss_num).group(0).strip()
-        item['discuss_num'] = string.atoi(discuss_num)
+        score = response.xpath('//div[@class="score-info"]/div[@class="satisfaction-degree-info"]/h4/text()').extract_first().encode('utf-8').strip()
+        item['score'] = string.atof(score)
+        review_num = response.xpath('//p[@class="person-num noLogin"]/a/text()').extract_first().encode('utf-8')
+        review_num = re.match(r'\d+', review_num).group(0).strip()
+        item['review_num'] = string.atoi(review_num)
         item['intro_detail'] = response.xpath('//div[@class="content"]/div[@class="course-brief"]/p/text()').extract_first().encode('utf-8').strip()
         intro = item['name'] + item['intro'] + item['intro_detail']
         item['keywords'] = self.extractKeywords(intro)

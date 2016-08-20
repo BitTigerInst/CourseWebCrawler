@@ -11,7 +11,7 @@ class ImoocPipeline(object):
         self.file = open('imooc.dat', 'wb')
 
     def process_item(self, item, spider):
-        val = "{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}\t{10}\n".format(item['id'], item['name'], item['grade'], item['platform'], item['url'], item['keywords'], item['student_num'], item['discuss_num'], item['intro'], item['img_url'], item['intro_detail'])
+        val = "{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}\t{10}\n".format(item['cid'], item['name'], item['score'], item['platform'], item['url'], item['keywords'], item['review_num'], item['student_num'], item['intro'], item['img_url'], item['intro_detail'])
         self.file.write(val)
         return item
 
@@ -35,7 +35,6 @@ class ImoocMongodbPipeline(object):
         self.client.close()
 
     def process_item(self, item, spider):
-        collection_name = item.__class__.__name__
-        #self.db[collection_name].remove({})
+        collection_name = "courses"
         self.db[collection_name].insert(dict(item))
         return item

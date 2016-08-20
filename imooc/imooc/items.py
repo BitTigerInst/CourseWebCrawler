@@ -9,15 +9,16 @@ import scrapy
 
 class ImoocItem(scrapy.Item):
     # define the fields for your item here like:
-    id = scrapy.Field()
+    cid = scrapy.Field()
     name = scrapy.Field()
+    score = scrapy.Field()
+    platform = scrapy.Field()
     url = scrapy.Field()
-    intro = scrapy.Field()
+    keywords = scrapy.Field()
     student_num = scrapy.Field()
-    discuss_num = scrapy.Field()
-    grade = scrapy.Field()
+    review_num = scrapy.Field()
+    intro = scrapy.Field()
     img_url = scrapy.Field()
     intro_detail = scrapy.Field()
-    platform = scrapy.Field()
-    keywords = scrapy.Field()
+
     pass
