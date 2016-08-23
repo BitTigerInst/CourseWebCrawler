@@ -65,7 +65,7 @@ DOWNLOAD_DELAY = 1
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'mooc_crawler.pipelines.MoocCrawlerPipeline': 200,
+    #'mooc_crawler.pipelines.MoocCrawlerPipeline': 200,
     'mooc_crawler.pipelines.MoocCrawlerMongodbPipeline': 100
 }
 

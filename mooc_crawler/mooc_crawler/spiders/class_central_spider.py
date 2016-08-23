@@ -101,7 +101,7 @@ class ClassCentralSpider(scrapy.Spider):
         parse_review_num = response.xpath('//span[@itemprop="votes"]/text()').extract_first().strip()
         item['review_num'] = string.atoi(parse_review_num)
 
-        parse_student_num = response.xpath('//span[@id="mycourses-listed-count"]/text()').extract_first().strip()
+        parse_student_num = re.findall(r'"mycourses-listed-count", 0, (.*), 0', response.text)[0].strip() or '0'
         item['student_num'] = string.atoi(parse_student_num)
 
         parse_course_info = response.xpath('//div[@class="course-desc"]').extract()
