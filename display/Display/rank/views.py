@@ -10,7 +10,10 @@ db = client[dbName]
 courses = db['courses']
 
 def rank(request):
-	RankList = courses.find().sort([('score', -1)]).limit(10)
-	return render(request, 'rank.html', {'RankList':RankList})
+	sortname = request.GET['sort']
+
+	ImoocList = courses.find({"platform":"imooc"}).sort([(sortname, -1)]).limit(10)
+	ClassCentralList = courses.find({"platform":{"$ne":"imooc"}}).sort([(sortname, -1)]).limit(10)
+	return render(request, 'rank.html', {'ImoocList':ImoocList, 'ClassCentralList':ClassCentralList})
 
 

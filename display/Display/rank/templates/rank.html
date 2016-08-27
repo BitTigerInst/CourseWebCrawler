@@ -2,18 +2,49 @@
 <html>
 <head>
 	<title>十佳课程排行榜</title>
+<style>
+span{
+	color: #ff5555
+}
+</style>
 </head>
 <body>
-<ul>
-{% for item in RankList %}
-<div>	
+<div class="rank_container" style="width:100%;height:100%">
+<div class="sort_name" style="padding-left:100px;border:1px">
+<form>
+<select name="sort">
+<option value="score">评分</option>
+<option value="student_num">学生数</option>
+<option value="review_num">评论数</option>
+<input type="submit" value="Submit" />
+</form>
+</div>
+<div class="imooc_rank" style="float:left;width:50%;height:100%">
+<h1 style="text-align:center"> 慕课网十佳课程排行榜 </h1>
+<ul style="padding-left:50px">
+{% for item in ImoocList %}
+<div>
 <a target="_blank" href="{{item.url}}">
-<img src="{{ item.img_url }}" />
-{{ item.name}}
-</a>  评分:{{ item.score}}
+<p style="font-size:20px">{{ item.name}}</p></a>  
+评分:<span>{{ item.score}}</span>   学习人数:<span>{{ item.student_num }}</span>   评论人数:<span>{{ item.review_num }}</span>
 </div>
 {% endfor %}
 </ul>
+</div>
+
+<div class="class_central_rank" style="float:left;width:50%;height:100%">
+<h1 style="text-align:center"> Class Central十佳课程排行榜 </h1>
+<ul style="padding-left:50px">
+{% for item in ClassCentralList %}
+<div>
+<a target="_blank" href="{{item.url}}">
+<p style="font-size:20px">{{ item.name}}</p>
+</a>  Score:<span>{{ item.score}}</span>   Interested Students:<span>{{ item.student_num }}</span>   Reivews:<span>{{ item.review_num}}</span>
+</div>
+{% endfor %}
+</ul>
+</div>
+</div>
 </body>
 </html>
 
