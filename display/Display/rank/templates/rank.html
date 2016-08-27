@@ -1,0 +1,19 @@
+<!!DOCTYPE html>
+<html>
+<head>
+	<title>十佳课程排行榜</title>
+</head>
+<body>
+<ul>
+{% for item in RankList %}
+<div>	
+<a target="_blank" href="{{item.url}}">
+<img src="{{ item.img_url }}" />
+{{ item.name}}
+</a>  评分:{{ item.score}}
+</div>
+{% endfor %}
+</ul>
+</body>
+</html>
+
