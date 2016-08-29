@@ -16,8 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from rank import views as rank_views
+from search import views as search_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 	url(r'^rank/', rank_views.rank, name="rank"),
+	url(r'^search/', search_views.search, name="search"),
 ]
