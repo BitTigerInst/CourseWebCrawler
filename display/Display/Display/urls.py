@@ -19,7 +19,8 @@ from rank import views as rank_views
 from search import views as search_views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+	url(r'^admin/', admin.site.urls),
 	url(r'^rank/', rank_views.rank, name="rank"),
 	url(r'^search/', search_views.search, name="search"),
+	url(r'^$', rank_views.index),
 ]

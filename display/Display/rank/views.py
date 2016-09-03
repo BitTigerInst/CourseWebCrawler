@@ -9,6 +9,9 @@ client = pymongo.MongoClient('localhost', 27017)
 db = client[dbName]
 courses = db['courses']
 
+def index(request):
+	return render(request, 'index.html')
+
 def rank(request):
 	sortname = request.GET.get('sort', 'score')
 	if sortname == 'score':
