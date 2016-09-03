@@ -10,23 +10,23 @@ span{
 	color: #ff5555
 }
 </style>
-
+<script type="text/javascript">
+$( function()  {
+var courseList = {{CourseNameList | safe }};
+var test = ["Statistics One", "java"];
+$( "#autocomplete" ).autocomplete({
+  source: courseList
+});
+});
+ 
+</script>
 </head>
 <body>
 <div class="search_container" style="width:100%;height:100%">
 <div class="search_name" style="padding-left:100px;border:1px">
 <form>
 <p>course name<input id="autocomplete" type="text" name="coursename" value="">
-<script>
-// var courseList = [];
-// {% for item in CourseNameList %}
-// courseList.push(item);
-// {% endfor %}
-var test = ["Statistics One", "java"];
-$( "#autocomplete" ).autocomplete({
-  source: test
-});
-</script>
+
 <button type="submit" value="Search">search</button>
 </p>
 </form>
