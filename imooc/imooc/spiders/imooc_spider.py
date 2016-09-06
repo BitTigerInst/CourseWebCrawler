@@ -64,9 +64,9 @@ class ImoocSpider(scrapy.Spider):
     def parse_detail_page(self, response):
         item = response.meta["item"]
 
-        score = response.xpath('//div[@class="score-info"]/div[@class="satisfaction-degree-info"]/h4/text()').extract_first().encode('utf-8').strip()
+        score = response.xpath('//div[@class="statics clearfix"]/div[@class="static-item l score-btn"]/span[@class="meta-value"]/text()').extract_first().encode('utf-8').strip()
         item['score'] = string.atof(score)
-        review_num = response.xpath('//p[@class="person-num noLogin"]/a/text()').extract_first().encode('utf-8')
+        review_num = response.xpath('//div[@class="score-box"]/a[@class="person-num"]/span/text()').extract_first().encode('utf-8').strip()
         review_num = re.match(r'\d+', review_num).group(0).strip()
         item['review_num'] = string.atoi(review_num)
         item['intro_detail'] = response.xpath('//div[@class="content"]/div[@class="course-brief"]/p/text()').extract_first().encode('utf-8').strip()
