@@ -1,7 +1,7 @@
 # CourseWebCrawler
 CourseWebCrawler is a web crawler for courses on scrapy. We create the crawler to collect the courses from imooc and class-central. The we generate a rank list and search function to recommend for users.
 
-**Demo:** http://123.56.12.211:8000/
+**Demo:** http://45.63.85.152:8000/
 
 ![](./img/rank.png)
 
